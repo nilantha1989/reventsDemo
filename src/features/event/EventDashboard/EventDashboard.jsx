@@ -65,6 +65,17 @@ class EventDashboard extends Component {
       isOpen: !isOpen,
     }));
   };
+
+  handleCreateEvent = (newEvent) => {
+    newEvent.id = this.state.events.length + 1;
+    newEvent.hostPhotoURL = "/assets/user.png";
+    //this.state.events.length+1;
+    this.setState(({ events }) => ({
+      events: [...events, newEvent],
+      isOpen: false,
+    }));
+  };
+
   render() {
     const { events, isOpen } = this.state;
     return (
@@ -78,7 +89,12 @@ class EventDashboard extends Component {
             positive
             content="Create Event"
           />
-          {isOpen && <EventForm cancelFormOpen={this.handleIsOpenToggle} />}
+          {isOpen && (
+            <EventForm
+              createEvent={this.handleCreateEvent}
+              cancelFormOpen={this.handleIsOpenToggle}
+            />
+          )}
         </Grid.Column>
       </Grid>
     );
